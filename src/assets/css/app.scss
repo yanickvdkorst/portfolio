@@ -1,3 +1,73 @@
-body {
-  background-color: #eaeaea;
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+$white: #ffffff;
+$black: #000000;
+$primary: #34073d;
+$secondary: #EF745C;
+$gradient: linear-gradient(130deg, #34073D 0%, #EF745C 100%);
+
+$lg: "only screen and (max-width: 1199px)"; // Desktop
+$md: "only screen and (max-width: 991px)";  // Tablet
+$sm: "only screen and (max-width: 767px)";  // Mobile
+
+
+
+@font-face {font-family: 'Play Fair Display'; src: url('../fonts/PlayfairDisplay.ttf') format('opentype');}
+@font-face {font-family: 'Open Sans'; src: url('../fonts/Open-Sans.ttf') format('opentype');}
+
+
+$heading-font: 'Play Fair Display', sans-serif;
+$paragraph-font: 'Open Sans', sans-serif;
+
+@mixin bold                               {font-weight: 700;}
+
+@mixin look-display                       {font-family: $heading-font; font-size: 15rem; font-weight: 700; text-transform: uppercase;}
+@mixin look-h1                            {font-family: $heading-font; font-size: 5rem; font-weight: 700; color: $white; text-transform: uppercase;}
+@mixin look-h2                            {font-family: $heading-font; font-size: 2.25rem; font-weight: 700; color: $white; text-transform: uppercase;}
+@mixin look-h3                            {font-family: $heading-font; font-size: 1.75rem; font-weight: 700; color: $white; text-transform: uppercase;}
+@mixin look-p                             {font-family: $paragraph-font; font-size: 1rem; color: $white;}
+@mixin look-link                          {font-family: $paragraph-font; font-size: 1.25rem; color: $white; font-weight: 400;}
+@mixin look-subheading                    {font-family: $paragraph-font; font-size: 2rem; color: $white; font-weight: 700;}
+
+
+.display                                  {@include look-display;}
+h1                                        {@include look-h1;}
+h2                                        {@include look-h2;}
+h3                                        {@include look-h3;}
+p                                         {@include look-p;}
+.link                                     {@include look-link;}
+.subheading                               {@include look-subheading; }
+
+
+.button                                   {padding: 0.375rem 0.875rem; background-color: $primary; color: $white; border-radius: 3rem; line-height: 1.5rem; 
+  &.ghost                                 {background-color: transparent; border: 1px solid $primary; color: $primary !important;
+    &:active                              {background-color: $primary; border: none; color: $white !important;}
+  }
+
+  &:active                                {background-color: transparent; border: 1px solid $primary; color: $primary !important;}
+}
+
+body                                      { background: $gradient;  background-repeat: no-repeat; min-width: 320px;  min-height: 100vh;}
+
+
+//////////////Navigation
+header                                    {
+  .navigation-inner                       {display: flex; justify-content: center; gap: 1.5rem; padding: 2.5rem 0;
+    .menu-item                            { @include look-p; @include bold;
+      &.router-link-active                {color: $secondary;}
+    }
+  }
 }
