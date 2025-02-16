@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 // import Hello from "../components/Hello.vue"
+import Banner from "@/components/BannerComp.vue";
+
 
 </script>
 
 <template>
-  <!-- <Hello /> -->
-   <h1>home</h1>
+  <Banner />
 </template>
