@@ -10,6 +10,7 @@ import Usps from "@/components/UspsComp.vue"
 
 <template>
   <Banner 
+    display="alternative"
     title="Yanick"
     span="van der Korst"
   />

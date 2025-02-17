@@ -13,13 +13,16 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  display?: "standard" | "alternative";
-  title: string;
-  span: string;
-}>();
-</script>
+import { withDefaults } from 'vue';
 
+    withDefaults(defineProps<{
+        display?: "standard" | "alternative";
+    title: string;
+    span: string;
+    }>(), {
+    display: "standard"
+    });
+</script>
 <style>
   
 </style>

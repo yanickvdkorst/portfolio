@@ -4,6 +4,7 @@ import TekstMetAfbeelding from "@/components/TekstAfbeeldingComp.vue"
 import Usps from "@/components/UspsComp.vue"
 import Image from "@/components/ImageComp.vue"
 import Text from "@/components/TextComp.vue"
+import ImageGalery from "@/components/ImageGaleryComp.vue";
 </script>
 
 
@@ -42,5 +43,11 @@ import Text from "@/components/TextComp.vue"
     text="Ik ben op dit moment ruim een jaar werkzaam bij Digitale Bazen als Junior Front-end Developer. Voorafgaand heb ik hier stage gelopen, waar ik onderzoek heb gedaan naar de implementatie van animatie en 3D op de Digitale Bazen websites. Deze heb ik succesvol afgerond en mocht daarbij ook nog eens aansluiten bij het team."
     button="Over Digitale Bazen"
     />
+
+    <ImageGalery 
+      display="standard"
+      image="/src/assets/images/projecten.jpg"
+    />
+
   
 </template>

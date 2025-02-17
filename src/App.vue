@@ -43,6 +43,7 @@
           <div class="footer-inner">
             <router-link class="menu-item link" to="/">Home</router-link>
             <router-link class="menu-item link" to="/about">Over mij</router-link>
+            <router-link class="menu-item link" to="/work">Werk</router-link>
             <router-link class="menu-item link" to="/about">Contact</router-link>
           </div>
         </div>
