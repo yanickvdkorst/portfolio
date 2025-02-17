@@ -1,10 +1,10 @@
 <template>
-    <div class="usps" :class="`display-${display}`">
+    <div :class="`usps display-${display}`">
         <div class="container">
             <div class="row">
                 <div :class="colClass">
                     <div class="content">
-                        <h2 class="title">Welke vaardigheden beheers ik?</h2>
+                        <h2 class="title">{{ title }}</h2>
                     </div>
                 </div>
                 <div :class="uspCol">
@@ -33,6 +33,7 @@ import { computed } from "vue";
 
     const props = defineProps<{
     display?: "standard" | "alternative";
+    title: string;
     }>();
 
     // Bepaal de CSS-klasse afhankelijk van de imagePosition

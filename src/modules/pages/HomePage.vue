@@ -5,6 +5,7 @@ import TekstMetAfbeelding from "@/components/TekstAfbeeldingComp.vue"
 import Usps from "@/components/UspsComp.vue"
 
 
+
 </script>
 
 <template>
@@ -19,5 +20,7 @@ import Usps from "@/components/UspsComp.vue"
       button="Meer over mij"
       image="/src/assets/images/profile.jpg"
   />
-  <Usps display="standard" />
+  <Usps display="standard" 
+      title = "Welke vaardigheden beheers ik?"
+  />
 </template>

@@ -33,6 +33,8 @@ $heading-font: 'Play Fair Display', sans-serif;
 $paragraph-font: 'Open Sans', sans-serif;
 
 @mixin bold                               {font-weight: 700;}
+@mixin regular                            {font-weight: 400;}
+
 
 @mixin look-display                       {font-family: $heading-font; font-size: 15rem; text-transform: uppercase;  @include bold;}
 @mixin look-h1                            {font-family: $heading-font; font-size: 5rem;  color: $white; text-transform: uppercase;  @include bold;} 
@@ -48,9 +50,18 @@ h1                                        {@include look-h1;}
 h2                                        {@include look-h2;}
 h3                                        {@include look-h3;}
 p                                         {@include look-p;}
-.link                                     {@include look-link;}
+.link                                     {@include look-link;
+  &:hover                                 {cursor: pointer;}
+}
 .subheading                               {@include look-subheading; }
 
+@mixin rounded-sm                         {border-radius: .5rem;}
+@mixin rounded                            {border-radius: 1rem;}
+
+@mixin flex                               {display: flex; flex-wrap: wrap;}
+@mixin block                              {display: block;}
+@mixin rel                                {position: relative;}
+@mixin abs                                {position: absolute;}
 
 .button                                   {padding: 0.75rem 1.25rem; background-color: $primary; color: $white; border-radius: .5rem; line-height: 1.5rem; @include bold; width: fit-content;
   &.ghost                                 {background-color: transparent; border: 1px solid $primary; color: $primary !important;
@@ -62,18 +73,18 @@ p                                         {@include look-p;}
   &:active                                {background-color: transparent; border: 1px solid $primary; color: $primary !important;}
 }
 
-body                                      { background: $gradient;  background-repeat: no-repeat; min-width: 320px;  min-height: 100vh;}
+body                                      { background: $gradient;  background-repeat: no-repeat; min-width: 320px;  min-height: 100vh; @include rel;
+    &::before                             {content: ''; background-image: url("../images/icon-triangle.svg"); width: 70rem; height: 72rem; @include abs; left: -17%; top: -22%; background-repeat: no-repeat; z-index: 2;}
+  }
 
-@mixin rounded-sm                         {border-radius: .5rem;}
-@mixin rounded                            {border-radius: 1rem;}
+html                                      {}
 
-@mixin flex                               {display: flex; flex-wrap: wrap;}
-@mixin block                              {display: block;}
-@mixin rel                                {position: relative;}
-@mixin abs                                {position: absolute;}
-
-//////////////Navigation
-header                                    {
+#app                                      {
+  &::before                             {content: ''; width: 100%; height: 100%; @include abs; left: 0; top: 0; background-repeat: no-repeat; z-index: 1; background: rgba(0, 0, 0, 0.2); }
+}
+#app > div                                {padding-top: 5rem; padding-bottom: 5rem; @include rel; z-index: 3;}
+//////////////Header
+header                                    {z-index: 4; @include rel;
   .navigation-inner                       {display: flex; justify-content: center; gap: 1.5rem; padding: 2.5rem 0;
     .menu-item                            { @include look-p; @include bold;
       &.router-link-active                {color: $secondary;}
@@ -81,10 +92,22 @@ header                                    {
   }
 }
 
+//////////////Footer
+footer                                    {padding: 5rem 0; z-index: 4; @include rel;
+  .menu-title                             {margin-bottom: 1rem;}
+  .footer-inner                           {@include flex; gap: .5rem; flex-direction: column;
+    .contactgegevens                      { @include flex; flex-direction: row; gap: 1rem; align-items: center;
+      .menu-item                            { @include regular;
+        &.router-link-active                {color: $secondary;}
+      }
+    }
+  }
+}
+
 
 
 /////////Banner
-.banner                                   {padding: 8.25rem 0;  display: flex; align-items: center;
+.banner                                   {padding: 8.25rem 0 !important;  display: flex; align-items: center;
   .content                                {text-align: center;
     .title                                {font-size: 15rem; line-height: 0.2;
       span                                {font-size: 3rem;}
@@ -139,3 +162,17 @@ header                                    {
   }
 }
 }       
+
+/////////image
+.image                                    {padding: 5rem 0;
+  .image-container                        {aspect-ratio: 3 / 2; width: 100%;
+    img                                   {object-fit: cover; width: 100%; height: 100%; @include rounded;}
+  }
+}
+
+/////////Text
+.text-display                             {padding: 2.5rem 0;
+  .content                                {}
+
+  .text-container                         {display: flex; gap: 1rem; flex-direction: column;}
+}

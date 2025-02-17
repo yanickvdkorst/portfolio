@@ -1,5 +1,5 @@
 <template>
-    <div class="banner">
+    <div :class="`banner display-${display}`">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -14,6 +14,7 @@
 
 <script setup lang="ts">
 defineProps<{
+  display?: "standard" | "alternative";
   title: string;
   span: string;
 }>();

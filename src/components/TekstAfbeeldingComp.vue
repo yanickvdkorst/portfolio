@@ -1,5 +1,5 @@
 <template>
-    <div class="tekst-met-afbeelding" :class="`image-${imagePosition}`">
+    <div :class="`tekst-met-afbeelding image-${imagePosition}`">
         <div class="container">
             <div class="row">
                 <div v-if="imagePosition === 'left'" class="col-lg-4">
