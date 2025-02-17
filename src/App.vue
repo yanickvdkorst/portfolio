@@ -6,6 +6,7 @@
           <div class="navigation-inner">
             <router-link class="menu-item" to="/">Home</router-link>
             <router-link class="menu-item" to="/about">Over mij</router-link>
+            <router-link class="menu-item" to="/projecten">Projecten</router-link>
             <router-link class="menu-item" to="/contact">Contact</router-link>
           </div>
         </div>

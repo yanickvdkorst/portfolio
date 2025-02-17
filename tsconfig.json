@@ -4,6 +4,7 @@
     "module": "esnext",
     "importHelpers": true,
     "skipLibCheck": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
@@ -22,7 +23,8 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "tests/**/*.ts"
+    "tests/**/*.ts",
+     "src/**/*.json"
   ],
   "exclude": ["node_modules"]
 }

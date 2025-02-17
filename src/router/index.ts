@@ -22,10 +22,18 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../modules/pages/MyWork.vue")
   },
   {
+    path: "/projecten",
+    name: "Projecten",
+    component: () => import("../modules/pages/ProjectPage.vue")
+  },
+  {
     path: "/demo",
     name: "demo",
     component: () => import("../modules/pages/DemoPage.vue")
-  }
+  },
+  { path: "/project/:slug",
+    name: "ProjectDetail",
+    component: () => import("../modules/projects/ProjectDetail.vue") },
 ]
 
 const router = createRouter({
