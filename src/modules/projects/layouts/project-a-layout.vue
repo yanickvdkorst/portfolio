@@ -1,16 +1,11 @@
 <script lang="ts" setup>
 import TekstMetAfbeelding from "@/components/TekstAfbeeldingComp.vue"
-import Banner from "@/components/BannerComp.vue";
 import Text from "@/components/TextComp.vue"
 import Usps from "@/components/UspsComp.vue"
 import Image from "@/components/ImageComp.vue"
 </script>
 
 <template>
-  <Banner 
-    title="Werk"
-    span=""
-  />
   <TekstMetAfbeelding 
       imagePosition="left" 
       title="Over digitale bazen"

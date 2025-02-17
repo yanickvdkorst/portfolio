@@ -1,20 +1,23 @@
 <template>
-  <div class="project-detail">
+ 
     <!-- Fallback project als project undefined is -->
-    <ProjectCard :project="project || fallbackProject">
-      <p class="project-description">{{ project?.category || 'No description available' }}</p>
-    </ProjectCard>
 
+    <ProjectBanner :project="project || fallbackProject">
+      <p class="project-description">{{ project?.category || 'No description available' }}</p>
+    </ProjectBanner>
+
+
+    
     <!-- Dynamische layout renderen als die bestaat -->
     <component :is="projectLayout" v-if="projectLayout" />
-  </div>
+ 
 </template>
 
 <script setup lang="ts">
 import { computed, ref, markRaw } from "vue";
 import { useRoute } from "vue-router";
 import projects from "@/store/data/projects.json";
-import ProjectCard from "@/modules/projects/ProjectCard.vue";
+import ProjectBanner from "@/modules/projects/ProjectBanner.vue";
 
 // Fallback project voor als de project niet gevonden wordt
 const fallbackProject = {
@@ -36,7 +39,7 @@ if (project.value?.layout) {
   const layoutName = project.value.layout; // Bijvoorbeeld "project-a-layout"
   
   // Dynamische import van de layout
-  import(`../projects/${layoutName}.vue`)
+  import(`../projects/layouts/${layoutName}.vue`)
     .then((module) => {
       // Markeer de geïmporteerde component als raw, zodat Vue het niet als reactief behandelt
       projectLayout.value = markRaw(module.default);
@@ -49,12 +52,5 @@ if (project.value?.layout) {
 </script>
 
 <style scoped>
-.project-detail {
-  max-width: 800px;
-  margin: 0 auto;
-}
 
-.project-description {
-  margin-top: 1rem;
-}
 </style>
