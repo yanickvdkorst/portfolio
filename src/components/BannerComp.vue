@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="content">
-                        <h1 class="title">Yanick<br> <span>van der Korst</span></h1>
+                        <h1 class="title">{{ title }}<br> <span>{{ span }}</span></h1>
                     </div>
                 </div>
             </div>
@@ -12,8 +12,11 @@
     </div>
 </template>
 
-<script>
-
+<script setup lang="ts">
+defineProps<{
+  title: string;
+  span: string;
+}>();
 </script>
 
 <style>

@@ -1,7 +1,9 @@
 <script lang="ts" setup>
- 
+  import Banner from "@/components/BannerComp.vue";
 </script>
 
 <template>
-  <h1>About</h1>
+    <Banner 
+    title="Over mij"
+  />
 </template>
