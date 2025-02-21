@@ -5,6 +5,9 @@ import Usps from "@/components/UspsComp.vue"
 import Image from "@/components/ImageComp.vue"
 import Text from "@/components/TextComp.vue"
 import ImageGalery from "@/components/ImageGaleryComp.vue";
+import ProjectFeatured from "@/components/ProjectFeaturedComp.vue";
+
+const selectedProjectSlugs = ["project-a", "project-b", "project-c"];
 </script>
 
 
@@ -49,5 +52,11 @@ import ImageGalery from "@/components/ImageGaleryComp.vue";
       image="/src/assets/images/projecten.jpg"
     />
 
+    <ProjectFeatured
+        title = "Projecten"
+        text="Hier alvast een kleine selectie van projecten die ik heb gemaakt."
+        button = "Meer projecten"
+        :selectedProjectSlugs="selectedProjectSlugs"
+    />
   
 </template>

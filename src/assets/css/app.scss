@@ -63,14 +63,21 @@ p                                         {@include look-p;}
 @mixin rel                                {position: relative;}
 @mixin abs                                {position: absolute;}
 
-.button                                   {padding: 0.75rem 1.25rem; background-color: $primary; color: $white; border-radius: .5rem; line-height: 1.5rem; @include bold; width: fit-content;
+.button                                   {padding: 0.75rem 1.25rem; background-color: $primary; color: $white; border-radius: .5rem; line-height: 1.5rem; @include bold; width: fit-content;  border: 1px solid $primary; 
   &.ghost                                 {background-color: transparent; border: 1px solid $primary; color: $primary !important;
-    &:active                              {background-color: $primary; border: none; color: $white !important;}
+    &:active, &:hover                      {background-color: $primary;  color: $white !important;}
   }
 
-  &.secondary                             {background-color: $secondary;}
+  &.secondary                             {background-color: $secondary;  border: 1px solid $secondary; 
+    &.ghost                                {background-color: transparent; border: 1px solid $secondary; color: $secondary !important;
+      &:active, &:hover                     {background-color: $secondary; color: $white !important;}
+    }
 
-  &:active                                {background-color: transparent; border: 1px solid $primary; color: $primary !important;}
+    &:active, &:hover                       {background-color: transparent; border: 1px solid $secondary; color: $secondary !important;}
+
+  }
+
+  &:active, &:hover                       {background-color: transparent; border: 1px solid $primary; color: $primary !important;}
 }
 
 body                                      { background: $gradient;  background-repeat: no-repeat; min-width: 320px;  min-height: 100vh; @include rel;
@@ -85,7 +92,7 @@ html                                      {}
 #app > div                                {padding-top: 5rem; padding-bottom: 5rem; @include rel; z-index: 3;}
 //////////////Header
 header                                    {z-index: 4; position: sticky; top: 0;
-  .navigation-inner                       {display: flex; justify-content: center; gap: 1.5rem; padding: 1.5rem 0;
+  .navigation-inner                       {display: flex; justify-content: center; gap: 1.5rem; padding: 2.5rem 0;
     .menu-item                            { @include look-p; @include bold;
       &.router-link-active                {color: $secondary;}
     }
@@ -211,6 +218,14 @@ footer                                    {padding: 5rem 0; z-index: 4; @include
   .project-list                           {display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;}
 
 }
+/////////Module Project featured
+.project-featured                         {
+  .content                                { text-align: center; margin-bottom: 2.5rem;
+    .title                                {margin-bottom: 1rem;}
+  }
+  .project-list                           {display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;}
+  .button-container                       {margin-top: 2.5rem; @include flex; justify-content: center;}
+}
 
 /////////Module Project detail banner 
 .project-detail                           {padding: 2.5rem 0 !important;
@@ -224,3 +239,4 @@ footer                                    {padding: 5rem 0; z-index: 4; @include
     }
   }
 }
+
