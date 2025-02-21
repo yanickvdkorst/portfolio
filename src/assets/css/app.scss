@@ -169,6 +169,19 @@ footer                                    {padding: 5rem 0; z-index: 4; @include
   }
 }
 
+/////////Tekst specifications
+.text-specifications                      {
+  .content                                {
+    .title                                {margin-bottom: 1.5rem;}
+    .list                                 {
+      *                                   {@include look-p;}
+      .list-item                          {margin-bottom: .5rem;}
+    }
+  }
+  .line                                   {height: 1px; border: 1px solid $secondary; margin: 3rem 0;}
+}
+
+
 
 /////////USPS
 .usps                                     {

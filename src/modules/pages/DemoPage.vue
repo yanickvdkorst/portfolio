@@ -6,8 +6,8 @@ import Image from "@/components/ImageComp.vue"
 import Text from "@/components/TextComp.vue"
 import ImageGalery from "@/components/ImageGaleryComp.vue";
 import ProjectFeatured from "@/components/ProjectFeaturedComp.vue";
+import TextSpecification from "@/components/TextSpecification.vue";
 
-const selectedProjectSlugs = ["project-a", "project-b", "project-c"];
 </script>
 
 
@@ -56,7 +56,16 @@ const selectedProjectSlugs = ["project-a", "project-b", "project-c"];
         title = "Projecten"
         text="Hier alvast een kleine selectie van projecten die ik heb gemaakt."
         button = "Meer projecten"
-        :selectedProjectSlugs="selectedProjectSlugs"
+        :selectedProjectSlugs="['project-a', 'project-b', 'project-c']"
+    />
+
+    <TextSpecification 
+        title_column_1="Uitdaging"
+        title_column_2="Resultaat"
+        title_column_3="Technical Aspects" 
+        text_column_1="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo fermentum lobortis. Suspendisse et felis nec mauris mattis pulvinar. Nunc eu mauris velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo fermentum lobortis. Suspendisse et felis nec mauris mattis pulvinar. Nunc eu mauris velit. " 
+        text_column_2="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo fermentum lobortis. Suspendisse et felis nec mauris mattis pulvinar. Nunc eu mauris velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo fermentum lobortis. Suspendisse et felis nec mauris mattis pulvinar. Nunc eu mauris velit. "
+        :list_items="['Blender', 'Unity', 'Photoshop']" 
     />
   
 </template>
