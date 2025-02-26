@@ -29,8 +29,8 @@ import TextSpecification from "@/components/TextSpecification.vue";
 
   <ImageGalery display="standard" image="/src/assets/images/projecten.jpg" />
 
-  <ProjectFeatured title="Projecten" text="Hier alvast een kleine selectie van projecten die ik heb gemaakt."
-    button="Meer projecten" :selectedProjectSlugs="['project-a', 'project-b', 'project-c']" />
+  <!-- <ProjectFeatured title="Projecten" text="Hier alvast een kleine selectie van projecten die ik heb gemaakt."
+    button="Meer projecten" :selectedProjectSlugs="['project-a', 'project-b', 'project-c']" /> -->
 
   <TextSpecification title_column_1="Uitdaging" title_column_2="Resultaat" title_column_3="Technical Aspects"
     text_column_1="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo fermentum lobortis. Suspendisse et felis nec mauris mattis pulvinar. Nunc eu mauris velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo fermentum lobortis. Suspendisse et felis nec mauris mattis pulvinar. Nunc eu mauris velit. "

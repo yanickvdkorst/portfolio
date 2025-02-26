@@ -17,8 +17,9 @@ const page = ref(null);
 // Functie om de pagina op te halen met de slug
 const fetchPage = async () => {
   if (slug.value) {
-    const res = await axios.get(`http://localhost:1337/api/pages?filters[slug][$eq]=${slug.value}&populate=*`);
+    const res = await axios.get(`http://localhost:1337/api/pages?filters[slug][$eq]=${slug.value}&populate[Content][populate]=*`);
     page.value = res.data.data[0]; // Haal de pagina op met de gekoppelde componenten
+    console.log('Fetched Page:', page.value);
   }
 };
 

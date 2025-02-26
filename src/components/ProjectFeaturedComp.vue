@@ -29,13 +29,21 @@ const props = defineProps<{
   title: string;
   text: string;
   button: string;
-  selectedProjectSlugs: Array<string>; // Dit is een array van strings (de slugs van de projecten)
+  selectedProjectSlugs: Array<{ slug: string }>; // Dit is een array van objecten met een slug
 }>();
+
+console.log('Selected Project Slugs:', props.selectedProjectSlugs);
+
+// Verkrijg de slugs uit de geselecteerde projecten
+const slugsFromSelectedProjects = props.selectedProjectSlugs.map(project => project.slug);
 
 // Zoek de geselecteerde projecten op basis van de slugs
 const selectedProjects = projects.filter(project =>
-  props.selectedProjectSlugs.includes(project.slug)
+  slugsFromSelectedProjects.includes(project.slug)
 );
+
+
+
 </script>
 
 <style scoped>
