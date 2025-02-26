@@ -16,6 +16,6 @@ import ProjectFeatured from "@/components/ProjectFeaturedComp.vue";
     button="Meer over mij" image="/src/assets/images/profile.jpg" />
   <Usps display="standard" title="Welke vaardigheden beheers ik?" />
 
-  <ProjectFeatured title="Projecten" text="Hier alvast een kleine selectie van projecten die ik heb gemaakt."
-    button="Meer projecten" :selectedProjectSlugs="['project-a', 'project-b', 'project-c']" />
+  <!-- <ProjectFeatured title="Projecten" text="Hier alvast een kleine selectie van projecten die ik heb gemaakt."
+    button="Meer projecten" :selectedProjectSlugs="['project-a', 'project-b', 'project-c']" /> -->
 </template>

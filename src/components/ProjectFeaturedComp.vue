@@ -21,26 +21,41 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, computed } from 'vue';
 import ProjectCard from "@/modules/projects/ProjectCard.vue";
-import projects from "@/store/data/projects.json";
+import { fetchProjects } from "@/store/data/projects";
 
-// Ontvang de props voor de slugs van de geselecteerde projecten
+interface Project {
+  slug: string;
+  title: string;
+  category: string;
+  year: number;
+  cover: string;
+  layout: string;
+}
+
+
 const props = defineProps<{
   title: string;
   text: string;
   button: string;
-  selectedProjectSlugs: Array<{ slug: string }>; // Dit is een array van objecten met een slug
+  selectedProjectSlugs: Array<{ slug: string }>; // Array van objecten, elk met een slug
 }>();
 
-console.log('Selected Project Slugs:', props.selectedProjectSlugs);
 
-// Verkrijg de slugs uit de geselecteerde projecten
-const slugsFromSelectedProjects = props.selectedProjectSlugs.map(project => project.slug);
+const projects = ref<Project[]>([]);
 
-// Zoek de geselecteerde projecten op basis van de slugs
-const selectedProjects = projects.filter(project =>
-  slugsFromSelectedProjects.includes(project.slug)
-);
+console.log("Meegegeven project slugs:", props.selectedProjectSlugs);
+
+const selectedProjects = computed(() => {
+  const selectedSlugs = props.selectedProjectSlugs.map(proj => proj.slug); // ✅ Extract alleen de slugs
+  return projects.value.filter(project => selectedSlugs.includes(project.slug));
+});
+
+// Laad de projecten bij het laden van de pagina
+onMounted(async () => {
+  projects.value = await fetchProjects();
+});
 
 
 

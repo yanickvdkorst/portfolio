@@ -24,7 +24,7 @@
       slug: string;
     };
   }>();
-  </script>
+  </script>s
   
   <style scoped>
 
