@@ -7,6 +7,7 @@ import TekstAfbeeldingComp from '@/components/TekstAfbeeldingComp.vue';
 import TextComp from '@/components/TextComp.vue';
 import UspsComp from '@/components/UspsComp.vue';
 import ProjectFeaturedComp from '@/components/ProjectFeaturedComp.vue';
+import ImageComp from '@/components/ImageComp.vue';
 
 // Haal de route op
 const route = useRoute();
@@ -45,7 +46,8 @@ const componentMap = {
   "pagecomps.text-with-image": TekstAfbeeldingComp,
   "pagecomps.text-display": TextComp,
   "pagecomps.usps": UspsComp,
-  "pagecomps.project-featured": ProjectFeaturedComp
+  "pagecomps.project-featured": ProjectFeaturedComp,
+  "pagecomps.imagecomp": ImageComp
 
 
 };

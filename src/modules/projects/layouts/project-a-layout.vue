@@ -6,13 +6,13 @@ import Image from "@/components/ImageComp.vue"
 </script>
 
 <template>
-  <TekstMetAfbeelding 
+  <!-- <TekstMetAfbeelding 
       imagePosition="left" 
       title="Over digitale bazen"
       tekst="Ik studeer ICT Media & Design, dit houdt in dat ik een opdracht vanuit een stakeholder krijg. Hiervoor onderzoek doe, een passend product bedenk, creeëer en test. Ik doe dit op bachelor niveau, voorgaand heb ik hiervoor een associate degree afgerond binnen dezelfde studie."
       button="Stuur me een mail"
       image="/src/assets/images/logo-profiel-vierkant.jpg"
-  />
+  /> -->
   <Text 
     display="standard"
     title="Mijn werkzaamheden"
@@ -22,8 +22,8 @@ import Image from "@/components/ImageComp.vue"
    <Usps display="alternative" 
       title = "Specialisme"
    />
-   <Image 
+   <!-- <Image 
     display="standard"
     image = "/src/assets/images/bbq_Yanick.jpg"
-   />
+   /> -->
 </template>

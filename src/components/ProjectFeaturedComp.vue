@@ -45,7 +45,6 @@ const props = defineProps<{
 
 const projects = ref<Project[]>([]);
 
-console.log("Meegegeven project slugs:", props.selectedProjectSlugs);
 
 const selectedProjects = computed(() => {
   const selectedSlugs = props.selectedProjectSlugs.map(proj => proj.slug); // ✅ Extract alleen de slugs

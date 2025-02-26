@@ -39,19 +39,21 @@ const route = useRoute();
 const project = ref<Project | null>(null);
  // Gebruik een ref om het project dynamisch in te laden
 const projectLayout = ref(null);
-
+const baseUrl = "http://localhost:1337"; // Je base URL
 // Laad de projecten van Strapi op basis van de slug
 const fetchProject = async () => {
   try {
-    const response = await axios.get(`http://localhost:1337/api/projects?filters[slug][$eq]=${route.params.slug}`);
+    const response = await axios.get(`http://localhost:1337/api/projects?filters[slug][$eq]=${route.params.slug}&populate=cover`);
     const projectData = response.data.data[0]; // Er wordt maar 1 project verwacht met de opgegeven slug
-
+    console.log('response:', response.data.data[0]);
     if (projectData) {
       project.value = {
         title: projectData.title,
         category: projectData.category,
         year: Number(projectData.year), // Zorg ervoor dat 'year' een nummer is
-        cover: projectData.cover,
+        cover: projectData.cover
+        ? `${baseUrl}${projectData.cover.url}` // Voeg de base URL toe aan de cover URL
+        : 'empty',
         description: projectData.description || 'No description available', // Voeg fallback toe als description ontbreekt
         slug: projectData.slug,
         layout: projectData.layout || '', // Als er geen layout is, laat het leeg
