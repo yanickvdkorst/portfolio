@@ -47,7 +47,7 @@ const componentMap = {
   "pagecomps.text-display": TextComp,
   "pagecomps.usps": UspsComp,
   "pagecomps.project-featured": ProjectFeaturedComp,
-  "pagecomps.imagecomp": ImageComp
+  "pagecomps.image": ImageComp
 
 
 };

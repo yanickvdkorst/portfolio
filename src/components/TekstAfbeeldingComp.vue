@@ -13,7 +13,7 @@
                     <div class="content">
                         <h2 class="title">{{ title }}</h2>
                         <p class="tekst">{{ tekst }}</p>
-                        <a v-if="button" class="button secondary" href="#">{{ button }}</a>
+                        <a v-if="button && button.url" class="button secondary" :href="buttonUrl">{{ button.title }}</a>
                     </div>
                 </div>
 
@@ -35,15 +35,20 @@ const props = defineProps<{
     imagePosition?: "left" | "right";
     title: string;
     tekst: string;
-    button: string;
+    button: { title: string; url: string | null }; // Verwacht een object met 'title' en 'url' keys
     image: { url: string }; // Verwacht een object met een 'url' key
 }>();
 
 // Bereken de URL van de afbeelding
 const baseUrl = "http://localhost:1337"; // Je Strapi base URL
+const webUrl = "http://localhost:3000"; // Je Strapi base URL
 
 const imageUrl = computed(() => {
     return baseUrl + props.image.url; // Voeg de base URL toe aan de relatieve URL
+});
+
+const buttonUrl = computed(() => {
+    return webUrl + props.button.url; // Voeg de base URL toe aan de relatieve URL
 });
 
 // Bepaal de CSS-klasse afhankelijk van de imagePosition

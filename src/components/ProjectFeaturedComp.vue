@@ -12,7 +12,7 @@
               :href="'/project/' + project.slug" />
           </div>
           <div class="button-container">
-            <a v-if="button" class="button secondary ghost" href="#">{{ button }}</a>
+            <a v-if="button && button.url" class="button secondary ghost" :href="buttonUrl">{{ button.title }}</a>
           </div>
         </div>
       </div>
@@ -38,10 +38,10 @@ interface Project {
 const props = defineProps<{
   title: string;
   text: string;
-  button: string;
+  button: { title: string; url: string | null }; 
   selectedProjectSlugs: Array<{ slug: string }>; // Array van objecten, elk met een slug
 }>();
-
+const webUrl = "http://localhost:3000"; // Je Strapi base URL
 
 const projects = ref<Project[]>([]);
 
@@ -49,6 +49,10 @@ const projects = ref<Project[]>([]);
 const selectedProjects = computed(() => {
   const selectedSlugs = props.selectedProjectSlugs.map(proj => proj.slug); // ✅ Extract alleen de slugs
   return projects.value.filter(project => selectedSlugs.includes(project.slug));
+});
+
+const buttonUrl = computed(() => {
+    return webUrl + props.button.url; // Voeg de base URL toe aan de relatieve URL
 });
 
 // Laad de projecten bij het laden van de pagina

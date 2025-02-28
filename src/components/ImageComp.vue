@@ -1,5 +1,5 @@
 <template>
-    <div  :class="`image display-${display}`">
+    <div :class="`image display-${display}`">
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 offset-lg-1">
@@ -13,18 +13,18 @@
 </template>
 
 <script setup lang="ts">
-    import { computed } from "vue";
+import { computed } from "vue";
 
-    const props = defineProps<{
-        display?: "standard" | "alternative";
-        image: { url: string }; // Verwacht een object met een 'url' key
-    }>();
+const props = defineProps<{
+    display?: "standard" | "alternative";
+    image: Array<{ url: string }>; // Verwacht een array van objecten met een 'url' key
+}>();
 
-    const baseUrl = "http://localhost:1337"; // Je Strapi base URL
-
-    const imageUrl = computed(() => {
-        return baseUrl + props.image.url; // Voeg de base URL toe aan de relatieve URL
-    });
-
-
+const baseUrl = "http://localhost:1337"; // Je Strapi base URL
+const imageUrl = computed(() => {
+    if (props.image.length > 0) {
+        return baseUrl + props.image[0].url; // Gebruik de eerste afbeelding uit de array
+    }
+    return ''; // Retourneer een lege string als er geen afbeeldingen zijn
+});
 </script>

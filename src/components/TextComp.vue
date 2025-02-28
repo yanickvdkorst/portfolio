@@ -10,7 +10,7 @@
                 <div class="col-lg-5 offset-lg-1">
                     <div class="text-container">
                         <p class="text">{{ text }}</p>
-                        <a v-if="button" class="button secondary" href="/work">{{ button }}</a>
+                        <a v-if="button && button.url" class="button secondary" :href="buttonUrl">{{ button.title }}</a>
                     </div>
                 </div>
             </div>
@@ -19,11 +19,19 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+import { computed } from "vue";
+
+const props = defineProps<{
     display?: "standard" | "alternative";
     title: string;
     text: string;
-    button: string;
+    button: { title: string; url: string | null }; 
 }>();
+
+const webUrl = "http://localhost:3000"; // Je Strapi base URL
+
+const buttonUrl = computed(() => {
+    return webUrl + props.button.url; // Voeg de base URL toe aan de relatieve URL
+});
 
 </script>
