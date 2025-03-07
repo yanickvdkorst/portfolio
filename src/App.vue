@@ -5,8 +5,8 @@
         <div class="col-lg-12">
           <div class="navigation-inner">
             <!-- Dynamisch navigatie menu vanuit de API voor header -->
-            <router-link v-for="page in pages" :key="page.slug" class="menu-item" :to="`/${page.slug}`">
-              {{ page.title }}
+            <router-link v-for="item in menuItems" :key="item.id" class="menu-item" :to="item.url">
+              {{ item.title }}
             </router-link>
           </div>
         </div>
@@ -45,8 +45,8 @@
         <div class="col-lg-3">
           <h3 class="menu-title">Menu</h3>
           <div class="footer-inner">
-            <router-link v-for="page in pages" :key="page.slug" class="menu-item link" :to="`/${page.slug}`">
-              {{ page.title }}
+            <router-link v-for="item in menuItems" :key="item.id" class="menu-item link" :to="item.url">
+              {{ item.title }}
             </router-link>
           </div>
         </div>
@@ -66,18 +66,18 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import axios from 'axios'
 
-// Typing voor de pagina's
-interface Page {
+// Typing voor de menu-items
+interface MenuItem {
   id: number;
-  slug: string;
   title: string;
+  url: string;
 }
 
-const pages = ref<Page[]>([])
+const menuItems = ref<MenuItem[]>([])
 
 onMounted(async () => {
-  const response = await axios.get('http://localhost:1337/api/pages?populate=*')
-  pages.value = response.data.data // Zet de opgehaalde pagina's in de `pages` array
+  const response = await axios.get('http://localhost:1337/api/menus?populate=*')
+  menuItems.value = response.data.data[0].items // Zet de opgehaalde menu-items in de `menuItems` array
 })
 
 const isScrolled = ref(false)
