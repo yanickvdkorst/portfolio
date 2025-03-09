@@ -18,8 +18,19 @@ const page = ref(null);
 // Functie om de pagina op te halen met de slug
 const fetchPage = async () => {
   if (slug.value) {
-    const res = await axios.get(`http://localhost:1337/api/pages?filters[slug][$eq]=${slug.value}&populate[Content][populate]=*`);
-    page.value = res.data.data[0]; // Haal de pagina op met de gekoppelde componenten
+    try {
+      const res = await axios.get(`http://localhost:1337/api/pages?filters[slug][$eq]=/${slug.value}&populate[Content][populate]=*`);
+      console.log('API response:', res.data); // Log de API respons
+      if (res.data.data.length > 0) {
+        page.value = res.data.data[0]; // Haal de pagina op met de gekoppelde componenten
+      } else {
+        console.warn('No page found for slug:', slug.value);
+        page.value = null; // Stel page in op null als er geen pagina is gevonden
+      }
+    } catch (error) {
+      console.error('Error fetching page:', error);
+      page.value = null; // Stel page in op null bij een fout
+    }
   }
 };
 
@@ -32,7 +43,6 @@ onMounted(() => {
 watch(() => route.params.slug, (newSlug) => {
   slug.value = newSlug;
   fetchPage(); // Haal de nieuwe pagina op bij slug verandering
-
 });
 
 // Computed property voor het renderen van componenten
@@ -48,14 +58,15 @@ const componentMap = {
   "pagecomps.usps": UspsComp,
   "pagecomps.project-featured": ProjectFeaturedComp,
   "pagecomps.image": ImageComp
-
-
 };
 </script>
 
 <template>
-
-  <component v-for="(component, index) in components" :key="index" :is="componentMap[component.__component]"
-    v-bind="component" />
-
+  <div v-if="page">
+    <component v-for="(component, index) in components" :key="index" :is="componentMap[component.__component]"
+      v-bind="component" />
+  </div>
+  <div v-else>
+    <p>Geen pagina gevonden voor de opgegeven slug.</p>
+  </div>
 </template>
