@@ -6,7 +6,7 @@
           <div class="navigation-inner">
             <!-- Dynamisch navigatie menu vanuit de API voor header -->
             <router-link v-for="item in menuItems" :key="item.id" class="menu-item" :to="item.url">
-              {{ item.title }}
+              {{ item.label }}
             </router-link>
           </div>
         </div>
@@ -46,7 +46,7 @@
           <h3 class="menu-title">Menu</h3>
           <div class="footer-inner">
             <router-link v-for="item in menuItems" :key="item.id" class="menu-item link" :to="item.url">
-              {{ item.title }}
+              {{ item.label }}
             </router-link>
           </div>
         </div>
@@ -69,7 +69,7 @@ import axios from 'axios'
 // Typing voor de menu-items
 interface MenuItem {
   id: number;
-  title: string;
+  label: string;
   url: string;
 }
 
@@ -77,7 +77,7 @@ const menuItems = ref<MenuItem[]>([])
 
 onMounted(async () => {
   const response = await axios.get('http://localhost:1337/api/menus?populate=*')
-  menuItems.value = response.data.data[0].items // Zet de opgehaalde menu-items in de `menuItems` array
+  menuItems.value = response.data.data[0].MenuItem // Zet de opgehaalde menu-items in de `menuItems` array
 })
 
 const isScrolled = ref(false)

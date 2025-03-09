@@ -20,7 +20,6 @@ const fetchPage = async () => {
   if (slug.value) {
     const res = await axios.get(`http://localhost:1337/api/pages?filters[slug][$eq]=${slug.value}&populate[Content][populate]=*`);
     page.value = res.data.data[0]; // Haal de pagina op met de gekoppelde componenten
-    console.log('Fetched Page:', page.value);
   }
 };
 
@@ -33,6 +32,7 @@ onMounted(() => {
 watch(() => route.params.slug, (newSlug) => {
   slug.value = newSlug;
   fetchPage(); // Haal de nieuwe pagina op bij slug verandering
+
 });
 
 // Computed property voor het renderen van componenten
