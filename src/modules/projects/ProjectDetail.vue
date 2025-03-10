@@ -1,11 +1,13 @@
 <template>
-  <!-- Fallback project als project undefined is -->
-  <ProjectBanner :project="project || fallbackProject">
-    <p class="project-description">{{ project?.category || 'No description available' }}</p>
-  </ProjectBanner>
+  <div class="wrapper">
+    <ProjectBanner :project="project || fallbackProject">
+      <p class="project-description">{{ project?.category || 'No description available' }}</p>
+    </ProjectBanner>
 
-  <!-- Dynamische layout renderen als die bestaat -->
-  <component :is="projectLayout" v-if="projectLayout" />
+    <!-- Dynamische layout renderen als die bestaat -->
+    <component :is="projectLayout" v-if="projectLayout" />
+  </div>
+  <!-- Fallback project als project undefined is -->
 </template>
 
 <script setup lang="ts">
@@ -37,7 +39,7 @@ const fallbackProject = {
 
 const route = useRoute();
 const project = ref<Project | null>(null);
- // Gebruik een ref om het project dynamisch in te laden
+// Gebruik een ref om het project dynamisch in te laden
 const projectLayout = ref(null);
 const baseUrl = "http://localhost:1337"; // Je base URL
 // Laad de projecten van Strapi op basis van de slug
@@ -52,8 +54,8 @@ const fetchProject = async () => {
         category: projectData.category,
         year: Number(projectData.year), // Zorg ervoor dat 'year' een nummer is
         cover: projectData.cover
-        ? `${baseUrl}${projectData.cover.url}` // Voeg de base URL toe aan de cover URL
-        : 'empty',
+          ? `${baseUrl}${projectData.cover.url}` // Voeg de base URL toe aan de cover URL
+          : 'empty',
         description: projectData.description || 'No description available', // Voeg fallback toe als description ontbreekt
         slug: projectData.slug,
         layout: projectData.layout || '', // Als er geen layout is, laat het leeg
@@ -71,7 +73,7 @@ const fetchProject = async () => {
 const loadLayout = async () => {
   if (project.value?.layout) {
     const layoutName = project.value.layout; // Bijvoorbeeld "project-a-layout"
-    
+
     try {
       // Dynamische import van de layout
       const module = await import(`../projects/layouts/${layoutName}.vue`);

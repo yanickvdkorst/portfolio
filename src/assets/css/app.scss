@@ -37,12 +37,24 @@ $paragraph-font: 'Open Sans', sans-serif;
 
 
 @mixin look-display                       {font-family: $heading-font; font-size: 15rem; text-transform: uppercase;  @include bold;}
-@mixin look-h1                            {font-family: $heading-font; font-size: 5rem;  color: $white; text-transform: uppercase;  @include bold;} 
-@mixin look-h2                            {font-family: $heading-font; font-size: 2.25rem;  color: $white; text-transform: uppercase;  @include bold;}
-@mixin look-h3                            {font-family: $heading-font; font-size: 1.75rem; color: $white; text-transform: uppercase;  @include bold;}
-@mixin look-p                             {font-family: $paragraph-font; font-size: 1rem; color: $white; @include bold; line-height: normal;}
-@mixin look-link                          {font-family: $paragraph-font; font-size: 1.25rem; color: $white; font-weight: 400;}
-@mixin look-subheading                    {font-family: $paragraph-font; font-size: 2rem; color: $white;  @include bold;}
+@mixin look-h1                            {font-family: $heading-font; font-size: 5rem;  color: $white; text-transform: uppercase;  @include bold;
+  @media #{$md}                            {font-size: 3.5rem;}
+} 
+@mixin look-h2                            {font-family: $heading-font; font-size: 2.25rem;  color: $white; text-transform: uppercase;  @include bold;
+  @media #{$md}                            {font-size: 1.75rem;}
+}
+@mixin look-h3                            {font-family: $heading-font; font-size: 1.75rem; color: $white; text-transform: uppercase;  @include bold;
+  @media #{$md}                            {font-size: 1.25rem;}
+}
+@mixin look-p                             {font-family: $paragraph-font; font-size: 1rem; color: $white; @include bold; line-height: normal;
+  @media #{$md}                            {font-size: .875rem;}
+}
+@mixin look-link                          {font-family: $paragraph-font; font-size: 1.25rem; color: $white; font-weight: 400;
+  @media #{$md}                            {font-size: 1rem;}
+}
+@mixin look-subheading                    {font-family: $paragraph-font; font-size: 2rem; color: $white;  @include bold;
+  @media #{$md}                            {font-size: 1.5rem;}
+}
 
 
 .display                                  {@include look-display;}
@@ -80,16 +92,18 @@ p                                         {@include look-p;}
   &:active, &:hover                       {background-color: transparent; border: 1px solid $primary; color: $primary !important;}
 }
 
-body                                      { background: $gradient;  background-repeat: no-repeat; min-width: 320px;  min-height: 100vh; @include rel;
+body                                      { background: $gradient;  background-repeat: no-repeat; min-width: 320px;  min-height: 100vh; @include rel;overflow-x: hidden;
     &::before                             {content: ''; background-image: url("../images/icon-triangle.svg"); width: 70rem; height: 72rem; @include abs; left: -17%; top: -22%; background-repeat: no-repeat; z-index: 2;}
   }
 
-html                                      {}
+html                                      {overflow-x: hidden;}
 
-#app                                      {
+#app                                      {overflow-x: hidden;
   &::before                             {content: ''; width: 100%; height: 100%; @include abs; left: 0; top: 0; background-repeat: no-repeat; z-index: 1; background: rgba(0, 0, 0, 0.2); }
 }
-#app > .wrapper > div                                {padding-top: 5rem; padding-bottom: 5rem; @include rel; z-index: 3;}
+#app > .wrapper > div                                {padding-top: 5rem; padding-bottom: 5rem; @include rel; z-index: 3;
+  @media #{$md}                                       {padding-top: 2.5rem; padding-bottom: 2.5rem;}
+}
 //////////////Header
 header                                    {z-index: 4; position: sticky; top: 0;  transition: background-color 0.3s ease-in-out;
   &.scrolled                              {background: $white; 
@@ -109,34 +123,40 @@ footer                                    {padding: 5rem 0; z-index: 4; @include
   .menu-title                             {margin-bottom: 1rem;}
   .footer-inner                           {@include flex; gap: .5rem; flex-direction: column;
     .contactgegevens                      { @include flex; flex-direction: row; gap: 1rem; align-items: center;
+      svg                                 {width: 1.5rem; height: 1.5rem;}       
       .menu-item                            { @include regular;
         &.router-link-active                {color: $secondary;}
       }
     }
   }
+
+  @media #{$md}                            {padding: 2.5rem 0 !important;
+    .footer-inner                         {margin-bottom: 1.5rem;}
+  }
+
 }
 
 
 
 /////////Banner
-.banner                                   { padding: 3.5rem 0 !important; display: flex; align-items: center;
+.banner                                   { padding: 3.5rem 0; display: flex; align-items: center;
   .content                                {text-align: center;}
 
-  &.display-alternative                    {padding: 8.25rem 0 !important;
+  &.display-alternative                    {padding: 8.25rem 0;
     .content                                {text-align: center;
       .title                                {font-size: 15rem; line-height: 0.2;
         span                                {font-size: 3rem;}
       }
     }
   }
-  @media #{$md}                            {
+  @media #{$md}                            {padding: 2.5rem 0 !important;
     .content                               {
-      .title                               {font-size: 10rem; line-height: 0.4;}
+      .title                               {font-size: 10rem !important;  line-height: 0.4 !important;}
     }
   }
   @media #{$sm}                            {
     .content                               {
-      .title                               {font-size:  5rem; line-height: unset;}
+      .title                               {font-size:  3rem !important; line-height: unset !important;}
     }
   }
 }
@@ -163,6 +183,11 @@ footer                                    {padding: 5rem 0; z-index: 4; @include
 /////////Text
 .text-display                             {padding: 2.5rem 0 !important;
   .text-container                         {display: flex; gap: 1rem; flex-direction: column;}
+
+  @media #{$md}                            {
+    .content                             {margin-bottom: 2.5rem;}
+    .text-container                      {gap: 2.5rem;}     
+  }
 }
 
 /////////Tekst met afbeelding           
@@ -171,6 +196,14 @@ footer                                    {padding: 5rem 0; z-index: 4; @include
 
   .image-container                        { aspect-ratio: 1 / 1; width: 100%;
     img                                   {object-fit: cover; width: 100%; height: 100%;  @include rounded;}
+  }
+
+  @media #{$md}                            {
+    .content                               {margin-bottom: 2.5rem; justify-content: flex-start;}
+
+    &.image-left                         {
+      .row                                {flex-direction: column-reverse;}
+    }
   }
 }
 
@@ -213,6 +246,10 @@ footer                                    {padding: 5rem 0; z-index: 4; @include
     }
   }
 }
+
+@media #{$md}                            {
+  .content                              {margin-bottom: 2.5rem;}           
+}
 }       
 
 
@@ -235,6 +272,9 @@ footer                                    {padding: 5rem 0; z-index: 4; @include
 .project-overview                         {padding: 2.5rem 0 !important;
   .project-list                           {display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;}
 
+  @media #{$md}                            {
+    .project-list                         {grid-template-columns: repeat(1, 1fr);}
+  }
 }
 /////////Module Project featured
 .project-featured                         {
@@ -243,6 +283,10 @@ footer                                    {padding: 5rem 0; z-index: 4; @include
   }
   .project-list                           {display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;}
   .button-container                       {margin-top: 2.5rem; @include flex; justify-content: center;}
+
+  @media #{$md}                            {padding: 2.5rem 0 !important;
+    .project-list                         {grid-template-columns: repeat(1, 1fr);}
+  }
 }
 
 /////////Module Project detail banner 

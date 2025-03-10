@@ -2,29 +2,10 @@ import { createRouter, createWebHistory, RouteRecordRaw, } from "vue-router"
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "/",
-    name: "Home",
-    component: () => import("../modules/pages/HomePage.vue")
-  },
-  {
-    path: "/about",
-    name: "Over mij",
-    component: () => import("../modules/pages/AboutMe.vue")
-  },
-  {
-    path: "/work",
-    name: "Work",
-    component: () => import("../modules/pages/MyWork.vue")
-  },
-  // {
-  //   path: "/projecten",
-  //   name: "Projecten",
-  //   component: () => import("../modules/pages/ProjectPage.vue")
-  // },
-  {
-    path: "/demo",
-    name: "demo",
-    component: () => import("../modules/pages/DemoPage.vue")
+    path: '/',
+    name: 'Home',
+    component: () => import("../modules/pages/PageLayout.vue"),
+    props: true,
   },
   { path: "/project/:slug",
     name: "ProjectDetail",

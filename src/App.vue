@@ -5,7 +5,7 @@
         <div class="col-lg-12">
           <div class="navigation-inner">
             <!-- Dynamisch navigatie menu vanuit de API voor header -->
-            <router-link v-for="item in menuItems" :key="item.id" class="menu-item" :to="item.url">
+            <router-link v-for="item in headerMenuItems" :key="item.id" class="menu-item" :to="item.url">
               {{ item.title }}
             </router-link>
           </div>
@@ -31,10 +31,10 @@
               <a class="link" href="mailto:yanick.van.der.korst@kpnmail.nl">yanick.van.der.korst@kpnmail.nl</a>
             </p>
             <p class="contactgegevens">
-              <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
                 <path
-                  d="M20.745 3.4425H6.255C5.50972 3.44458 4.79556 3.74157 4.26856 4.26856C3.74157 4.79556 3.44458 5.50972 3.4425 6.255V20.745C3.44458 21.4903 3.74157 22.2045 4.26856 22.7314C4.79556 23.2584 5.50972 23.5554 6.255 23.5575H20.745C21.4909 23.5575 22.2063 23.2612 22.7337 22.7337C23.2612 22.2063 23.5575 21.4909 23.5575 20.745V6.255C23.5575 5.50908 23.2612 4.79371 22.7337 4.26627C22.2063 3.73882 21.4909 3.4425 20.745 3.4425ZM22.4325 20.745C22.4296 21.1916 22.2508 21.6192 21.935 21.935C21.6192 22.2508 21.1916 22.4296 20.745 22.4325H6.255C5.80836 22.4296 5.38085 22.2508 5.06502 21.935C4.74919 21.6192 4.57045 21.1916 4.5675 20.745V6.255C4.57045 5.80836 4.74919 5.38085 5.06502 5.06502C5.38085 4.74919 5.80836 4.57045 6.255 4.5675H20.745C21.1916 4.57045 21.6192 4.74919 21.935 5.06502C22.2508 5.38085 22.4296 5.80836 22.4325 6.255V20.745Z"
-                  fill="white" />
+                  d="M19.65 3.44971H4.35C3.99196 3.44971 3.64858 3.59194 3.39541 3.84511C3.14223 4.09829 3 4.44166 3 4.79971V20.0997C3 20.4577 3.14223 20.8011 3.39541 21.0543C3.64858 21.3075 3.99196 21.4497 4.35 21.4497H19.65C20.008 21.4497 20.3514 21.3075 20.6046 21.0543C20.8578 20.8011 21 20.4577 21 20.0997V4.79971C21 4.44166 20.8578 4.09829 20.6046 3.84511C20.3514 3.59194 20.008 3.44971 19.65 3.44971ZM8.4 18.7497H5.7V10.6497H8.4V18.7497ZM7.05 9.07471C6.74056 9.06586 6.4406 8.96603 6.18758 8.78768C5.93456 8.60932 5.7397 8.36036 5.62737 8.0719C5.51503 7.78345 5.49019 7.46828 5.55595 7.16578C5.6217 6.86328 5.77515 6.58687 5.9971 6.37108C6.21906 6.15529 6.49968 6.0097 6.80391 5.95248C7.10814 5.89527 7.42248 5.92898 7.70766 6.04939C7.99284 6.16981 8.23622 6.3716 8.40737 6.62954C8.57853 6.88748 8.66987 7.19015 8.67 7.49971C8.66289 7.92302 8.4885 8.32631 8.18495 8.62144C7.88139 8.91656 7.47335 9.07952 7.05 9.07471ZM18.3 18.7497H15.6V14.4837C15.6 13.2057 15.06 12.7467 14.358 12.7467C14.1522 12.7604 13.9511 12.8146 13.7663 12.9063C13.5815 12.9979 13.4166 13.1252 13.2811 13.2807C13.1457 13.4363 13.0422 13.6171 12.9768 13.8127C12.9114 14.0083 12.8853 14.215 12.9 14.4207C12.8955 14.4626 12.8955 14.5048 12.9 14.5467V18.7497H10.2V10.6497H12.81V11.8197C13.0733 11.4192 13.435 11.093 13.8605 10.8724C14.286 10.6518 14.761 10.5441 15.24 10.5597C16.635 10.5597 18.264 11.3337 18.264 13.8537L18.3 18.7497Z"
+                  fill="white" style="fill:white;fill-opacity:1;" />
               </svg>
               <a class="link" href="">Yanickvdk</a>
             </p>
@@ -43,9 +43,9 @@
 
         <!-- Dynamisch navigatie menu voor footer -->
         <div class="col-lg-3">
-          <h3 class="menu-title">Menu</h3>
+          <h3 class="menu-title">Snel naar</h3>
           <div class="footer-inner">
-            <router-link v-for="item in menuItems" :key="item.id" class="menu-item link" :to="item.url">
+            <router-link v-for="item in footerMenuItems" :key="item.id" class="menu-item link" :to="item.url">
               {{ item.title }}
             </router-link>
           </div>
@@ -73,11 +73,13 @@ interface MenuItem {
   url: string;
 }
 
-const menuItems = ref<MenuItem[]>([])
+const headerMenuItems = ref<MenuItem[]>([])
+const footerMenuItems = ref<MenuItem[]>([])
 
 onMounted(async () => {
   const response = await axios.get('http://localhost:1337/api/menus?populate=*')
-  menuItems.value = response.data.data[0].MenuItem // Zet de opgehaalde menu-items in de `menuItems` array
+  headerMenuItems.value = response.data.data[0].MenuItem // Zet de opgehaalde menu-items in de `headerMenuItems` array
+  footerMenuItems.value = response.data.data[1].MenuItem // Zet de opgehaalde footer menu-items in de `footerMenuItems` array
 })
 
 const isScrolled = ref(false)

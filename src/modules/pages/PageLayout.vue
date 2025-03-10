@@ -1,8 +1,10 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue';
 import axios from 'axios';
-import { useRoute } from 'vue-router'; // Importeren van useRoute om de slug uit de URL te halen
-import BannerComp from '@/components/BannerComp.vue'; // Import de banner
+import { useRoute } from 'vue-router'; // Om de slug uit de URL te halen
+
+// Component imports
+import BannerComp from '@/components/BannerComp.vue';
 import TekstAfbeeldingComp from '@/components/TekstAfbeeldingComp.vue';
 import TextComp from '@/components/TextComp.vue';
 import UspsComp from '@/components/UspsComp.vue';
@@ -10,48 +12,61 @@ import ProjectFeaturedComp from '@/components/ProjectFeaturedComp.vue';
 import ImageComp from '@/components/ImageComp.vue';
 import ProjectOverview from '@/components/ProjectOverview.vue';
 
-// Haal de route op
+// Route & slug setup
 const route = useRoute();
-const slug = ref(route.params.slug); // Maak een ref van de slug
+const slug = ref(route.params.slug || '');
 
+// Data
 const page = ref(null);
 
-// Functie om de pagina op te halen met de slug
+// ✅ Functie om de pagina op te halen met de slug
 const fetchPage = async () => {
-  if (slug.value) {
-    try {
-      const res = await axios.get(`http://localhost:1337/api/pages?filters[slug][$eq]=/${slug.value}&populate[Content][populate]=*`);
-      console.log('API response:', res.data); // Log de API respons
-      if (res.data.data.length > 0) {
-        page.value = res.data.data[0]; // Haal de pagina op met de gekoppelde componenten
-      } else {
-        console.warn('No page found for slug:', slug.value);
-        page.value = null; // Stel page in op null als er geen pagina is gevonden
-      }
-    } catch (error) {
-      console.error('Error fetching page:', error);
-      page.value = null; // Stel page in op null bij een fout
+  let slugValue = slug.value;
+
+  // ✅ Fallback slug naar '/' als deze leeg is of '/'
+  if (!slugValue || slugValue === '' || slugValue === '/') {
+    slugValue = '/'; // 🔥 Zorg dat dit overeenkomt met je slug in Strapi!
+  }
+
+  console.log('Fetching page with slug:', slugValue); // ✅ Debugging log
+
+  try {
+    const res = await axios.get(
+      `http://localhost:1337/api/pages?filters[slug][$eq]=${slugValue}&populate[Content][populate]=*`
+    );
+    console.log('API response:', res.data);
+
+    if (res.data.data.length > 0) {
+      page.value = res.data.data[0]; // ✅ Pagina gevonden!
+      console.log('Page content:', page.value.Content); // Log de content van de pagina
+    } else {
+      console.warn('No page found for slug:', slugValue);
+      page.value = null; // ✅ Geen pagina gevonden
     }
+  } catch (error) {
+    console.error('Error fetching page:', error);
+    page.value = null;
   }
 };
 
-// Haal de pagina op bij de eerste keer laden
+// ✅ Eerste keer ophalen als de pagina mount
 onMounted(() => {
   fetchPage();
 });
 
-// Gebruik watch om slug te volgen en de pagina opnieuw op te halen bij veranderingen
+// ✅ Watcher om de pagina opnieuw op te halen als de slug wijzigt
 watch(() => route.params.slug, (newSlug) => {
-  slug.value = newSlug;
-  fetchPage(); // Haal de nieuwe pagina op bij slug verandering
+  slug.value = newSlug || '';
+  fetchPage();
 });
 
-// Computed property voor het renderen van componenten
+// ✅ Computed property voor de componenten van de pagina
 const components = computed(() => {
-  return page.value?.Content || []; // Geef de Content componenten terug
+  console.log('Computed components:', page.value?.Content || []); // Log de componenten
+  return page.value?.Content || []; // 🔥 LET OP: Strapi v4 heeft vaak 'attributes'
 });
 
-// Mapping van componenten naar Vue componenten
+// ✅ Mapping van backend component types naar Vue componenten
 const componentMap = {
   "pagecomps.banner": BannerComp,
   "pagecomps.text-with-image": TekstAfbeeldingComp,
@@ -68,6 +83,7 @@ const componentMap = {
     <component v-for="(component, index) in components" :key="index" :is="componentMap[component.__component]"
       v-bind="component" />
   </div>
+
   <div v-else>
     <p>Geen pagina gevonden voor de opgegeven slug.</p>
   </div>
