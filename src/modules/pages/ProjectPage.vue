@@ -4,11 +4,8 @@ import ProjectOverview from '@/components/ProjectOverview.vue';
 </script>
 
 <template>
-    <Banner 
-        title="Projecten"
-        span=""
-    />
-    <ProjectOverview 
-        title="Projecten"
-    />
+    <div class="wrapper">
+        <Banner title="Projecten" span="" />
+        <ProjectOverview title="Projecten" />
+    </div>
 </template>

@@ -8,6 +8,7 @@ import TextComp from '@/components/TextComp.vue';
 import UspsComp from '@/components/UspsComp.vue';
 import ProjectFeaturedComp from '@/components/ProjectFeaturedComp.vue';
 import ImageComp from '@/components/ImageComp.vue';
+import ProjectOverview from '@/components/ProjectOverview.vue';
 
 // Haal de route op
 const route = useRoute();
@@ -57,12 +58,13 @@ const componentMap = {
   "pagecomps.text-display": TextComp,
   "pagecomps.usps": UspsComp,
   "pagecomps.project-featured": ProjectFeaturedComp,
-  "pagecomps.image": ImageComp
+  "pagecomps.image": ImageComp,
+  "pagecomps.project-overview": ProjectOverview
 };
 </script>
 
 <template>
-  <div v-if="page">
+  <div class="wrapper" v-if="page">
     <component v-for="(component, index) in components" :key="index" :is="componentMap[component.__component]"
       v-bind="component" />
   </div>

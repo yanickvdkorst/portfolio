@@ -6,7 +6,7 @@
           <div class="navigation-inner">
             <!-- Dynamisch navigatie menu vanuit de API voor header -->
             <router-link v-for="item in menuItems" :key="item.id" class="menu-item" :to="item.url">
-              {{ item.label }}
+              {{ item.title }}
             </router-link>
           </div>
         </div>
@@ -46,7 +46,7 @@
           <h3 class="menu-title">Menu</h3>
           <div class="footer-inner">
             <router-link v-for="item in menuItems" :key="item.id" class="menu-item link" :to="item.url">
-              {{ item.label }}
+              {{ item.title }}
             </router-link>
           </div>
         </div>
@@ -69,7 +69,7 @@ import axios from 'axios'
 // Typing voor de menu-items
 interface MenuItem {
   id: number;
-  label: string;
+  title: string;
   url: string;
 }
 
