@@ -6,8 +6,11 @@
 
     <!-- Dynamische layout renderen als die bestaat -->
     <component :is="projectLayout" v-if="projectLayout" />
+
+    <!-- Dynamische paginablokken renderen -->
+    <component v-for="(component, index) in components" :key="index" :is="componentMap[component.__component]"
+      v-bind="component" />
   </div>
-  <!-- Fallback project als project undefined is -->
 </template>
 
 <script setup lang="ts">
@@ -15,6 +18,14 @@ import { computed, ref, markRaw, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import axios from 'axios';
 import ProjectBanner from "@/modules/projects/ProjectBanner.vue";
+
+import BannerComp from '@/components/BannerComp.vue';
+import TekstAfbeeldingComp from '@/components/TekstAfbeeldingComp.vue';
+import TextComp from '@/components/TextComp.vue';
+import UspsComp from '@/components/UspsComp.vue';
+import ProjectFeaturedComp from '@/components/ProjectFeaturedComp.vue';
+import ImageComp from '@/components/ImageComp.vue';
+import ProjectOverview from '@/components/ProjectOverview.vue';
 
 interface Project {
   title: string;
@@ -24,8 +35,13 @@ interface Project {
   description: string;
   slug: string;
   layout: string | null; // layout kan een string zijn of null als het niet beschikbaar is
+  Content: any[]; // Voeg Content toe als array van blokken
 }
 
+interface Component {
+  __component: string;
+  [key: string]: any;
+}
 
 // Fallback project voor als de project niet gevonden wordt
 const fallbackProject = {
@@ -34,7 +50,9 @@ const fallbackProject = {
   year: 2023,
   cover: "/path/to/default/image.jpg",
   description: "No description available",
-  slug: "#"
+  slug: "#",
+  layout: null,
+  Content: []
 };
 
 const route = useRoute();
@@ -42,32 +60,47 @@ const project = ref<Project | null>(null);
 // Gebruik een ref om het project dynamisch in te laden
 const projectLayout = ref(null);
 const baseUrl = "http://localhost:1337"; // Je base URL
+
 // Laad de projecten van Strapi op basis van de slug
 const fetchProject = async () => {
   try {
-    const response = await axios.get(`http://localhost:1337/api/projects?filters[slug][$eq]=${route.params.slug}&populate=cover`);
+    const response = await axios.get(`http://localhost:1337/api/projects?filters[slug][$eq]=${route.params.slug}&populate[Content][populate]=*&populate=cover
+`);
     const projectData = response.data.data[0]; // Er wordt maar 1 project verwacht met de opgegeven slug
-    console.log('response:', response.data.data[0]);
+    console.log('response:', projectData);
+
     if (projectData) {
+      // CHECK: Heeft projectData 'attributes'?
+      const data = projectData.attributes || projectData;
+
       project.value = {
-        title: projectData.title,
-        category: projectData.category,
-        year: Number(projectData.year), // Zorg ervoor dat 'year' een nummer is
-        cover: projectData.cover
-          ? `${baseUrl}${projectData.cover.url}` // Voeg de base URL toe aan de cover URL
-          : 'empty',
-        description: projectData.description || 'No description available', // Voeg fallback toe als description ontbreekt
-        slug: projectData.slug,
-        layout: projectData.layout || '', // Als er geen layout is, laat het leeg
+        title: data.title,
+        category: data.category,
+        year: Number(data.year),
+        cover: data.cover?.formats?.large?.url
+          ? `${baseUrl}${data.cover.formats.large.url}`
+          : data.cover?.url
+            ? `${baseUrl}${data.cover.url}`
+            : 'empty',
+
+
+        description: data.description || 'No description available',
+        slug: data.slug,
+        layout: data.layout || null,
+        Content: data.Content || []
       };
+
+      console.log('project.value:', project.value);
+
     } else {
-      project.value = null; // Als het project niet gevonden wordt, gebruik null
+      project.value = fallbackProject;
     }
   } catch (error) {
     console.error('Fout bij het ophalen van het project:', error);
-    project.value = null; // Foutafhandeling, stel in op null
+    project.value = fallbackProject;
   }
 };
+
 
 // Dynamisch de layout importeren
 const loadLayout = async () => {
@@ -83,6 +116,23 @@ const loadLayout = async () => {
       projectLayout.value = null;
     }
   }
+};
+
+// Computed property voor de componenten van de pagina
+const components = computed<Component[]>(() => {
+  console.log('Computed components:', project.value?.Content || []); // Log de componenten
+  return project.value?.Content || [];
+});
+
+// Mapping van backend component types naar Vue componenten
+const componentMap: { [key: string]: any } = {
+  "pagecomps.banner": BannerComp,
+  "pagecomps.text-with-image": TekstAfbeeldingComp,
+  "pagecomps.text-display": TextComp,
+  "pagecomps.usps": UspsComp,
+  "pagecomps.project-featured": ProjectFeaturedComp,
+  "pagecomps.image": ImageComp,
+  "pagecomps.project-overview": ProjectOverview
 };
 
 onMounted(async () => {
