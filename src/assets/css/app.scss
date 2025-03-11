@@ -304,5 +304,12 @@ footer                                    {padding: 5rem 0; z-index: 4; @include
       .project-category                     {padding: .5rem 1rem; background: rgba(52, 7, 61, 0.20); @include rounded; }
     }
   }
+
+  @media #{$md}                            {padding: 7.5rem 0 2.5rem 0 !important;
+    .content                               {
+      .title                               {font-size:  3rem !important; line-height: unset !important;}
+    }
+
+  }
 }
 

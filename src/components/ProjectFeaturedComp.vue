@@ -8,6 +8,7 @@
             <p class="text">{{ text }}</p>
           </div>
           <div class="project-list">
+            <!-- Stuur de array van categorieën naar de ProjectCard -->
             <ProjectCard v-for="project in selectedProjects" :key="project.title" :project="project"
               :href="'/project/' + project.slug" />
           </div>
@@ -28,23 +29,20 @@ import { fetchProjects } from "@/store/data/projects";
 interface Project {
   slug: string;
   title: string;
-  category: string;
   year: number;
   cover: string;
   layout: string;
 }
 
-
 const props = defineProps<{
   title: string;
   text: string;
-  button: { title: string; url: string | null }; 
+  button: { title: string; url: string | null };
   selectedProjectSlugs: Array<{ slug: string }>; // Array van objecten, elk met een slug
 }>();
 const webUrl = "http://localhost:3000"; // Je Strapi base URL
 
 const projects = ref<Project[]>([]);
-
 
 const selectedProjects = computed(() => {
   const selectedSlugs = props.selectedProjectSlugs.map(proj => proj.slug); // ✅ Extract alleen de slugs
@@ -52,16 +50,13 @@ const selectedProjects = computed(() => {
 });
 
 const buttonUrl = computed(() => {
-    return webUrl + props.button.url; // Voeg de base URL toe aan de relatieve URL
+  return webUrl + props.button.url; // Voeg de base URL toe aan de relatieve URL
 });
 
 // Laad de projecten bij het laden van de pagina
 onMounted(async () => {
   projects.value = await fetchProjects();
 });
-
-
-
 </script>
 
 <style scoped>

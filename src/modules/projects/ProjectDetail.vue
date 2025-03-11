@@ -1,7 +1,12 @@
 <template>
   <div class="wrapper">
-    <ProjectBanner :project="project || fallbackProject">
-      <p class="project-description">{{ project?.category || 'No description available' }}</p>
+    <ProjectBanner :project="projectWithCategories || fallbackProject">
+      <!-- Loop door de categories en maak voor elke een nieuwe <p> -->
+      <div v-if="projectWithCategories?.category?.length">
+        <p v-for="(cat, index) in projectWithCategories.category" :key="index" class="project-description">
+          {{ cat || 'No description available' }}
+        </p>
+      </div>
     </ProjectBanner>
 
     <!-- Dynamische layout renderen als die bestaat -->
@@ -29,7 +34,7 @@ import ProjectOverview from '@/components/ProjectOverview.vue';
 
 interface Project {
   title: string;
-  category: string;
+  category: string[]; // Veranderd naar een array van strings
   year: number;
   cover: string;
   description: string;
@@ -46,7 +51,7 @@ interface Component {
 // Fallback project voor als de project niet gevonden wordt
 const fallbackProject = {
   title: "Unknown Project",
-  category: "Unknown",
+  category: ["Unknown"],
   year: 2023,
   cover: "/path/to/default/image.jpg",
   description: "No description available",
@@ -61,11 +66,21 @@ const project = ref<Project | null>(null);
 const projectLayout = ref(null);
 const baseUrl = "http://localhost:1337"; // Je base URL
 
+// Computed property om de categorieën om te zetten naar een array van strings
+const projectWithCategories = computed(() => {
+  if (project.value) {
+    return {
+      ...project.value,
+      category: project.value.category.map(cat => cat)
+    };
+  }
+  return null;
+});
+
 // Laad de projecten van Strapi op basis van de slug
 const fetchProject = async () => {
   try {
-    const response = await axios.get(`http://localhost:1337/api/projects?filters[slug][$eq]=${route.params.slug}&populate[Content][populate]=*&populate=cover
-`);
+    const response = await axios.get(`http://localhost:1337/api/projects?filters[slug][$eq]=${route.params.slug}&populate[Category]=*&populate[Content][populate]=*&populate=cover`);
     const projectData = response.data.data[0]; // Er wordt maar 1 project verwacht met de opgegeven slug
     console.log('response:', projectData);
 
@@ -75,15 +90,13 @@ const fetchProject = async () => {
 
       project.value = {
         title: data.title,
-        category: data.category,
+        category: data.Category.map((cat: { Categorie: string }) => cat.Categorie) || [],
         year: Number(data.year),
         cover: data.cover?.formats?.large?.url
           ? `${baseUrl}${data.cover.formats.large.url}`
           : data.cover?.url
             ? `${baseUrl}${data.cover.url}`
             : 'empty',
-
-
         description: data.description || 'No description available',
         slug: data.slug,
         layout: data.layout || null,
@@ -100,7 +113,6 @@ const fetchProject = async () => {
     project.value = fallbackProject;
   }
 };
-
 
 // Dynamisch de layout importeren
 const loadLayout = async () => {
