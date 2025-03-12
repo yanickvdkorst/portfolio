@@ -11,6 +11,7 @@ import UspsComp from '@/components/UspsComp.vue';
 import ProjectFeaturedComp from '@/components/ProjectFeaturedComp.vue';
 import ImageComp from '@/components/ImageComp.vue';
 import ProjectOverview from '@/components/ProjectOverview.vue';
+import ImageGaleryComp from '@/components/ImageGaleryComp.vue';
 
 // Route & slug setup
 const route = useRoute();
@@ -32,7 +33,7 @@ const fetchPage = async () => {
 
   try {
     const res = await axios.get(
-      `http://localhost:1337/api/pages?filters[slug][$eq]=${slugValue}&populate[Content][populate]=*`
+      `http://localhost:1337/api/pages?filters[slug][$eq]=${slugValue}&pLevel=10`
     );
     console.log('API response:', res.data);
 
@@ -74,7 +75,8 @@ const componentMap = {
   "pagecomps.usps": UspsComp,
   "pagecomps.project-featured": ProjectFeaturedComp,
   "pagecomps.image": ImageComp,
-  "pagecomps.project-overview": ProjectOverview
+  "pagecomps.project-overview": ProjectOverview,
+  "pagecomps.image-gallery": ImageGaleryComp
 };
 </script>
 

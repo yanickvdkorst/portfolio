@@ -31,6 +31,7 @@ import UspsComp from '@/components/UspsComp.vue';
 import ProjectFeaturedComp from '@/components/ProjectFeaturedComp.vue';
 import ImageComp from '@/components/ImageComp.vue';
 import ProjectOverview from '@/components/ProjectOverview.vue';
+import ImageGaleryComp from "@/components/ImageGaleryComp.vue";
 
 interface Project {
   title: string;
@@ -80,7 +81,7 @@ const projectWithCategories = computed(() => {
 // Laad de projecten van Strapi op basis van de slug
 const fetchProject = async () => {
   try {
-    const response = await axios.get(`http://localhost:1337/api/projects?filters[slug][$eq]=${route.params.slug}&populate[Category]=*&populate[Content][populate]=*&populate=cover`);
+    const response = await axios.get(`http://localhost:1337/api/projects?filters[slug][$eq]=${route.params.slug}&pLevel=10`);
     const projectData = response.data.data[0]; // Er wordt maar 1 project verwacht met de opgegeven slug
     console.log('response:', projectData);
 
@@ -144,7 +145,8 @@ const componentMap: { [key: string]: any } = {
   "pagecomps.usps": UspsComp,
   "pagecomps.project-featured": ProjectFeaturedComp,
   "pagecomps.image": ImageComp,
-  "pagecomps.project-overview": ProjectOverview
+  "pagecomps.project-overview": ProjectOverview,
+  "pagecomps.image-galery": ImageGaleryComp
 };
 
 onMounted(async () => {
