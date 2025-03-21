@@ -8,7 +8,9 @@ export const fetchProjects = async () => {
     return response.data.data.map((project: any) => ({
       slug: project.slug,
       title: project.title,
-      category: project.category,
+      Category: project.Category.map((cat: any) => ({
+        Categorie: cat.Categorie
+      })),
       year: Number(project.year), // Zorg ervoor dat year een number is
       cover: project.cover
         ? `${baseUrl}${project.cover.url}` // Voeg de base URL toe aan de cover URL
@@ -16,6 +18,7 @@ export const fetchProjects = async () => {
       layout: project.layout,
     }
   )
+  
 );
     
   } catch (error) {

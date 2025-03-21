@@ -5,12 +5,8 @@
         <div class="col-lg-12">
           <div class="project-list">
             <!-- Toon alle projecten zonder filter -->
-            <ProjectCard
-              v-for="project in projects"
-              :key="project.title"
-              :project="project"
-              :href="'/project/' + project.slug"
-            />
+            <ProjectCard v-for="project in projects" :key="project.slug" :project="project"
+              :href="'/project/' + project.slug" />
           </div>
         </div>
       </div>
@@ -26,7 +22,7 @@ import { fetchProjects } from "@/store/data/projects";
 interface Project {
   slug: string;
   title: string;
-  category: string;
+  Category: Array<{ Categorie: string }>;
   year: number;
   cover: string;  // De cover is nu een string (de volledige URL)
   layout: string;
@@ -34,9 +30,11 @@ interface Project {
 
 const projects = ref<Project[]>([]);
 
+console.log("projecten:", projects);
 // Haal de projecten op
 onMounted(async () => {
   projects.value = await fetchProjects();
+  console.log('Opgehaalde projecten:', projects.value);
 });
 </script>
 

@@ -12,6 +12,8 @@ import ProjectFeaturedComp from '@/components/ProjectFeaturedComp.vue';
 import ImageComp from '@/components/ImageComp.vue';
 import ProjectOverview from '@/components/ProjectOverview.vue';
 import ImageGaleryComp from '@/components/ImageGaleryComp.vue';
+import TextSpecification from '@/components/TextSpecification.vue';
+import VideoComp from '@/components/VideoComp.vue';
 
 // Route & slug setup
 const route = useRoute();
@@ -76,7 +78,9 @@ const componentMap = {
   "pagecomps.project-featured": ProjectFeaturedComp,
   "pagecomps.image": ImageComp,
   "pagecomps.project-overview": ProjectOverview,
-  "pagecomps.image-gallery": ImageGaleryComp
+  "pagecomps.image-gallery": ImageGaleryComp,
+  "pagecomps.text-with-details": TextSpecification,
+  "pagecomps.video": VideoComp,
 };
 </script>
 

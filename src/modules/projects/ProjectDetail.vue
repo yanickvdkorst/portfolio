@@ -31,7 +31,9 @@ import UspsComp from '@/components/UspsComp.vue';
 import ProjectFeaturedComp from '@/components/ProjectFeaturedComp.vue';
 import ImageComp from '@/components/ImageComp.vue';
 import ProjectOverview from '@/components/ProjectOverview.vue';
-import ImageGaleryComp from "@/components/ImageGaleryComp.vue";
+import ImageGaleryComp from '@/components/ImageGaleryComp.vue';
+import TextSpecification from "@/components/TextSpecification.vue";
+import VideoComp from '@/components/VideoComp.vue';
 
 interface Project {
   title: string;
@@ -101,7 +103,15 @@ const fetchProject = async () => {
         description: data.description || 'No description available',
         slug: data.slug,
         layout: data.layout || null,
-        Content: data.Content || []
+        Content: data.Content.map((content: any) => {
+          if (content.__component === 'pagecomps.text-with-details') {
+            return {
+              ...content,
+              list_items: content.Items.map((item: { Item: string }) => ({ Item: item.Item }))
+            };
+          }
+          return content;
+        }) || []
       };
 
       console.log('project.value:', project.value);
@@ -146,7 +156,9 @@ const componentMap: { [key: string]: any } = {
   "pagecomps.project-featured": ProjectFeaturedComp,
   "pagecomps.image": ImageComp,
   "pagecomps.project-overview": ProjectOverview,
-  "pagecomps.image-galery": ImageGaleryComp
+  "pagecomps.image-galery": ImageGaleryComp,
+  "pagecomps.text-with-details": TextSpecification,
+  "pagecomps.video": VideoComp
 };
 
 onMounted(async () => {

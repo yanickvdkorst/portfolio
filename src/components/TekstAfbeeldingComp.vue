@@ -13,7 +13,9 @@
                     <div class="content">
                         <h2 class="title">{{ title }}</h2>
                         <p class="tekst">{{ tekst }}</p>
-                        <a v-if="button && button.url" class="button secondary" :href="buttonUrl">{{ button.title }}</a>
+                        <a v-if="button && button.url" class="button secondary" :href="button.url">{{
+                            button.title
+                        }}</a>
                     </div>
                 </div>
 

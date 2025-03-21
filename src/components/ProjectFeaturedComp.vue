@@ -9,7 +9,7 @@
           </div>
           <div class="project-list">
             <!-- Stuur de array van categorieën naar de ProjectCard -->
-            <ProjectCard v-for="project in selectedProjects" :key="project.title" :project="project"
+            <ProjectCard v-for="project in selectedProjects" :key="project.slug" :project="project"
               :href="'/project/' + project.slug" />
           </div>
           <div class="button-container">
@@ -32,6 +32,7 @@ interface Project {
   year: number;
   cover: string;
   layout: string;
+  Category: Array<{ Categorie: string }>;
 }
 
 const props = defineProps<{
@@ -56,6 +57,7 @@ const buttonUrl = computed(() => {
 // Laad de projecten bij het laden van de pagina
 onMounted(async () => {
   projects.value = await fetchProjects();
+  console.log('Opgehaalde projecten:', projects.value);
 });
 </script>
 

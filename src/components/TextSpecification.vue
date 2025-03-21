@@ -20,13 +20,12 @@
             </div>
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="content">  
+                    <div class="content">
                         <h2 class="title">{{ title_column_3 }}</h2>
                         <ul class="list">
-                            <li class="list-item" v-for="(item, index) in list_items" :key="index">{{ item }}</li>
+                            <li class="list-item" v-for="(item, index) in list_items" :key="index">{{ item.Item }}</li>
                         </ul>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -34,13 +33,17 @@
 </template>
 
 <script setup lang="ts">
-    defineProps<{
-        title_column_1: string;
-        title_column_2: string;
-        title_column_3: string;
-        text_column_1:string;
-        text_column_2:string;
-        list_items: string[];
-    }>();
+const props = defineProps<{
+    title_column_1: string;
+    title_column_2: string;
+    title_column_3: string;
+    text_column_1: string;
+    text_column_2: string;
+    list_items: Array<{ Item: string }>;
+}>();
 
 </script>
+
+<style scoped>
+/* Optionele styling voor je component */
+</style>
