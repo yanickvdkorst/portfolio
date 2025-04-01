@@ -1,5 +1,6 @@
 <template>
   <Analytics />
+
   <SpeedInsights />
 
   <header :class="{ scrolled: isScrolled }">
