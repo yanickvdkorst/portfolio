@@ -71,7 +71,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import axios from 'axios'
 import { Analytics } from '@vercel/analytics/vue';
-import { SpeedInsights } from "@vercel/speed-insights/vue"
+import { SpeedInsights } from '@vercel/speed-insights/vue';
 
 // Typing voor de menu-items
 interface MenuItem {
