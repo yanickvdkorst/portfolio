@@ -1,5 +1,7 @@
 <template>
+  <Analytics />
   <header :class="{ scrolled: isScrolled }">
+
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
@@ -65,6 +67,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import axios from 'axios'
+import { Analytics } from '@vercel/analytics/vue';
 
 // Typing voor de menu-items
 interface MenuItem {
