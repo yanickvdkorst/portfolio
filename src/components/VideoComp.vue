@@ -20,10 +20,11 @@ const props = defineProps<{
     video: { url: string }; // Dit is een Object, geen Array
 }>();
 
-const baseUrl = "http://localhost:1337";
+
+const baseURL = import.meta.env.VITE_API_URL; // Je Strapi base URL
 
 const videoUrl = computed(() => {
-    return props.video ? baseUrl + props.video.url : '';
+    return props.video ? baseURL + props.video.url : '';
 });
 
 </script>

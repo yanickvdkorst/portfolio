@@ -20,10 +20,11 @@ const props = defineProps<{
     image: Array<{ url: string }>; // Verwacht een array van objecten met een 'url' key
 }>();
 
-const baseUrl = "http://localhost:1337"; // Je Strapi base URL
+const baseURL = import.meta.env.VITE_API_URL;
+
 const imageUrl = computed(() => {
     if (props.image.length > 0) {
-        return baseUrl + props.image[0].url; // Gebruik de eerste afbeelding uit de array
+        return baseURL + props.image[0].url; // Gebruik de eerste afbeelding uit de array
     }
     return ''; // Retourneer een lege string als er geen afbeeldingen zijn
 });

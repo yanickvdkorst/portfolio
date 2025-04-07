@@ -22,10 +22,11 @@ const props = defineProps<{
     Images: Array<{ Image: { url: string, alternativeText?: string } }>; // Verwacht een array van objecten met een 'Image' key
 }>();
 
-const baseUrl = "http://localhost:1337"; // Je Strapi base URL
+const baseURL = import.meta.env.VITE_API_URL;
+
 const imageUrls = computed(() => {
     return props.Images.map(image => ({
-        url: baseUrl + image.Image.url,
+        url: baseURL + image.Image.url,
         alternativeText: image.Image.alternativeText
     }));
 });

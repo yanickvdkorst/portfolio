@@ -41,7 +41,9 @@ const props = defineProps<{
   button: { title: string; url: string | null };
   selectedProjectSlugs: Array<{ slug: string }>; // Array van objecten, elk met een slug
 }>();
-const webUrl = "http://localhost:3000"; // Je Strapi base URL
+const baseURL = import.meta.env.VITE_API_URL;
+const webUrl = import.meta.env.VITE_WEB_URL; // Je Strapi base URL
+
 
 const projects = ref<Project[]>([]);
 

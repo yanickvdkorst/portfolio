@@ -72,6 +72,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import axios from 'axios'
 import { Analytics } from '@vercel/analytics/vue';
 import { SpeedInsights } from '@vercel/speed-insights/vue';
+const baseURL = import.meta.env.VITE_API_URL;
 
 // Typing voor de menu-items
 interface MenuItem {
@@ -84,7 +85,7 @@ const headerMenuItems = ref<MenuItem[]>([])
 const footerMenuItems = ref<MenuItem[]>([])
 
 onMounted(async () => {
-  const response = await axios.get('http://localhost:1337/api/menus?populate=*')
+  const response = await axios.get(`${baseURL}/api/menus?populate=*`); // Haal de menu-items op van de API
   headerMenuItems.value = response.data.data[0].MenuItem // Zet de opgehaalde menu-items in de `headerMenuItems` array
   footerMenuItems.value = response.data.data[1].MenuItem // Zet de opgehaalde footer menu-items in de `footerMenuItems` array
 })

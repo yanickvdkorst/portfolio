@@ -15,7 +15,7 @@
                         <p class="tekst">{{ tekst }}</p>
                         <a v-if="button && button.url" class="button secondary" :href="button.url">{{
                             button.title
-                        }}</a>
+                            }}</a>
                     </div>
                 </div>
 
@@ -42,11 +42,12 @@ const props = defineProps<{
 }>();
 
 // Bereken de URL van de afbeelding
-const baseUrl = "http://localhost:1337"; // Je Strapi base URL
-const webUrl = "http://localhost:3000"; // Je Strapi base URL
+const baseURL = import.meta.env.VITE_API_URL;
+const webUrl = import.meta.env.VITE_WEB_URL; // Je Strapi base URL
+
 
 const imageUrl = computed(() => {
-    return baseUrl + props.image.url; // Voeg de base URL toe aan de relatieve URL
+    return baseURL + props.image.url; // Voeg de base URL toe aan de relatieve URL
 });
 
 const buttonUrl = computed(() => {

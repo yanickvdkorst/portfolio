@@ -16,6 +16,7 @@ import TextSpecification from '@/components/TextSpecification.vue';
 import VideoComp from '@/components/VideoComp.vue';
 
 // Route & slug setup
+const baseURL = import.meta.env.VITE_API_URL;
 const route = useRoute();
 const slug = ref(route.params.slug || '');
 
@@ -35,7 +36,7 @@ const fetchPage = async () => {
 
   try {
     const res = await axios.get(
-      `http://localhost:1337/api/pages?filters[slug][$eq]=${slugValue}&pLevel=10`
+      `${baseURL}/api/pages?filters[slug][$eq]=${slugValue}&pLevel=10`
     );
     console.log('API response:', res.data);
 

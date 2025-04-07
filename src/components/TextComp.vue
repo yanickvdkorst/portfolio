@@ -25,11 +25,11 @@ const props = defineProps<{
     display?: "standard" | "alternative";
     title: string;
     text: string;
-    button: { title: string; url: string | null }; 
+    button: { title: string; url: string | null };
 }>();
 
-const webUrl = "http://localhost:3000"; // Je Strapi base URL
 
+const webUrl = import.meta.env.VITE_WEB_URL; // Je Strapi base URL
 const buttonUrl = computed(() => {
     return webUrl + props.button.url; // Voeg de base URL toe aan de relatieve URL
 });

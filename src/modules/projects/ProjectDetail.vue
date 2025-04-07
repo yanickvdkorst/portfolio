@@ -67,7 +67,8 @@ const route = useRoute();
 const project = ref<Project | null>(null);
 // Gebruik een ref om het project dynamisch in te laden
 const projectLayout = ref(null);
-const baseUrl = "http://localhost:1337"; // Je base URL
+
+const baseURL = import.meta.env.VITE_API_URL;
 
 // Computed property om de categorieën om te zetten naar een array van strings
 const projectWithCategories = computed(() => {
@@ -83,7 +84,7 @@ const projectWithCategories = computed(() => {
 // Laad de projecten van Strapi op basis van de slug
 const fetchProject = async () => {
   try {
-    const response = await axios.get(`http://localhost:1337/api/projects?filters[slug][$eq]=${route.params.slug}&pLevel=10`);
+    const response = await axios.get(`${baseURL}/api/projects?filters[slug][$eq]=${route.params.slug}&pLevel=10`);
     const projectData = response.data.data[0]; // Er wordt maar 1 project verwacht met de opgegeven slug
     console.log('response:', projectData);
 
@@ -96,9 +97,9 @@ const fetchProject = async () => {
         category: data.Category.map((cat: { Categorie: string }) => cat.Categorie) || [],
         year: Number(data.year),
         cover: data.cover?.formats?.large?.url
-          ? `${baseUrl}${data.cover.formats.large.url}`
+          ? `${baseURL}${data.cover.formats.large.url}`
           : data.cover?.url
-            ? `${baseUrl}${data.cover.url}`
+            ? `${baseURL}${data.cover.url}`
             : 'empty',
         description: data.description || 'No description available',
         slug: data.slug,
